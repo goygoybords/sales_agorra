@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 27, 2016 at 01:35 PM
+-- Generation Time: Jan 27, 2016 at 05:15 PM
 -- Server version: 5.6.14
 -- PHP Version: 5.5.6
 
@@ -27,26 +27,25 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `clients` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `client_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `company_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `company_address` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `contact_person` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `contact_person` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `contact_number` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `credit_limit` decimal(8,2) NOT NULL,
   `balance` decimal(8,2) NOT NULL,
   `status` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`client_id`),
   UNIQUE KEY `clients_company_name_unique` (`company_name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `clients`
 --
 
-INSERT INTO `clients` (`id`, `company_name`, `company_address`, `contact_person`, `contact_number`, `email`, `credit_limit`, `balance`, `status`) VALUES
-(1, 'Flashpark Inc', 'North Atrium Bldg. Mandaue City Cebu', 'Goygoy Kho', '09232525162', 'kev@flashpark.com', '100000.00', '0.00', 1),
-(2, 'Bibo Global Opportunities Inc', 'Cebu Business Park, Cebu City', 'Carlo Jacaban', '09167951354', 'carloc@gmail.com', '999999.99', '0.00', 1);
+INSERT INTO `clients` (`client_id`, `company_name`, `company_address`, `contact_person`, `contact_number`, `email`, `credit_limit`, `balance`, `status`) VALUES
+(1, 'Flashpark Inc.', 'Mandaue City Cebu', 'Filjumar Jumamoy', '09167985678', 'fil@gmail.com', '100000.00', '0.00', 1);
 
 -- --------------------------------------------------------
 
@@ -67,7 +66,9 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 ('2014_10_12_000000_create_users_table', 1),
 ('2014_10_12_100000_create_password_resets_table', 1),
 ('2016_01_26_013157_create_sessions_table', 1),
-('2016_01_27_012016_create_clients_tbl', 1);
+('2016_01_27_012016_create_clients_tbl', 1),
+('2016_01_27_063552_create_proposal_tbl', 1),
+('2016_01_27_071810_create_service_category_list', 1);
 
 -- --------------------------------------------------------
 
@@ -83,12 +84,46 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
   KEY `password_resets_token_index` (`token`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `password_resets`
+-- Table structure for table `proposals`
 --
 
-INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
-('kevinseankho@yahoo.com', '6a23833665a8f955b751107678e77db8fd7a19df25ed3c7a92e8358f08cd8cf0', '2016-01-26 18:38:29');
+CREATE TABLE IF NOT EXISTS `proposals` (
+  `proposal_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `project_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `proposal_date` date NOT NULL,
+  `salesperson` int(11) NOT NULL,
+  `client_id` int(11) NOT NULL,
+  `service_category_id` int(11) NOT NULL,
+  `amount` decimal(8,2) NOT NULL,
+  `date_sent` datetime NOT NULL,
+  `filename` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `status` tinyint(1) NOT NULL,
+  PRIMARY KEY (`proposal_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `service_category`
+--
+
+CREATE TABLE IF NOT EXISTS `service_category` (
+  `service_category_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `service_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  PRIMARY KEY (`service_category_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `service_category`
+--
+
+INSERT INTO `service_category` (`service_category_id`, `service_name`, `status`) VALUES
+(1, 'Web Development', 1),
+(2, 'SEO Optimizer', 1);
 
 -- --------------------------------------------------------
 
@@ -113,7 +148,7 @@ CREATE TABLE IF NOT EXISTS `sessions` (
 --
 
 CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
@@ -131,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`, `type`, `status`) VALUES
-(1, 'kevin sean kho', 'kevinseankho@yahoo.com', '$2y$10$befSQQNoub87eAFV/OxS2uPWVenhmsGbBaxWaWDve9.RQnf9jBPxK', '1S8rz5iavquftiz6hXQPQ6NXJ70eJ90eDVlpdMIvxknxvnLTsut23yGeUMHu', '2016-01-27 02:24:44', '2016-01-26 18:24:44', 2, 1);
+(1, 'Kevin Sean Kho', 'kevinseankho@yahoo.com', '$2y$10$IRuSLwoqGeVk3Id4afkFFuAq9vXrPW1uujre2wMYBey4fPXdzJ63S', NULL, '2016-01-26 23:26:44', '2016-01-26 23:26:44', 2, 1);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
