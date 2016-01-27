@@ -14,6 +14,7 @@ class DashboardController extends Controller
      */
     public function __construct()
     {
+        session_start();
         $this->middleware('auth');
     }
 

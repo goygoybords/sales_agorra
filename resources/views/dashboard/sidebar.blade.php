@@ -25,7 +25,7 @@
                             <span>Manage Proposal</span>
                         </a>
                         <ul class="sub">
-                            <li><a  href="newProposal.php">New Proposal</a></li>
+                            <li><a  href="{{ url('/newProposal') }}">New Proposal</a></li>
                             <li><a  href="listProposal.php">List Proposals</a></li>
                         </ul>
                     </li>

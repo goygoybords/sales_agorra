@@ -14,7 +14,7 @@ class CreateClientsTbl extends Migration
     {  
         //master list for clients
         Schema::create('clients', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('client_id');
             $table->string('company_name')->unique();
             $table->string('company_address');
             $table->string('contact_person');

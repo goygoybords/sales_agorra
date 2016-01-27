@@ -28,7 +28,7 @@
                                     @endif
                                 </center>
                                 @if(isset($client))
-                        		<form method = "POST" action = "{{ url('/editClient', $client->id) }}">
+                        		<form method = "POST" action = "{{ url('/editClient', $client->client_id) }}">
                                 @else
                                 <form method = "POST" action = "{{ url('/insertClientRecord') }}">
                                 @endif  

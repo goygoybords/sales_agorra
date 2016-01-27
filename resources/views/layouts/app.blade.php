@@ -128,11 +128,3 @@
       });
 
   </script>
-  <script type="text/javascript">
-      $(document).on("click", ".editClient", function () 
-      {
-          
-         var name = $(this).data('name');
-  
-     });
-  </script>

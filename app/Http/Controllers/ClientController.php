@@ -9,6 +9,11 @@ use App\Http\Controllers\Controller;
 
 class ClientController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function listClients()
     {
     	$title = "List of Clients";
@@ -52,7 +57,7 @@ class ClientController extends Controller
     public function listOfClients()
     {
         $client = Client::where('status', 1)
-                        ->orderBy('id')
+                        ->orderBy('client_id')
                         ->get();
         return $client;
     }
@@ -60,16 +65,15 @@ class ClientController extends Controller
     public function editClientView($id)
     {
     	$client = Client::where('status' , 1)
-    					->find($id);
+                        ->where('client_id' , $id)
+                        ->first();
+
     	$title = "Edit Client";
     	return view('clients.client_new')->with(compact('title','client'));
     }
 
     public function updateClientRecord(Request $request, $id)
     {
-    	$client = Client::where('status' , 1)
-    					->find($id);
-
     	$data = $request->only('company_name' , 'address' , 'contact_person' , 
     		'contact_number' , 'credit_limit', 'email');
         
@@ -82,16 +86,19 @@ class ClientController extends Controller
                  ];
 
         $this->validate($request,$rules);
+        $updates = ['company_name' => $data['company_name'] , 
+                    'company_address' => $data['address'],
+                    'contact_person' => $data['contact_person'],
+                    'contact_number' => $data['contact_number'],
+                    'email' => $data['email'],
+                    'credit_limit' => $data['credit_limit']
+                   ];
+        
+        $client = Client::where('status' , 1)
+                    ->where('client_id' , $id)
+                    ->update($updates);
 
-        $client->company_name = $data['company_name'];
-        $client->company_address = $data['address'];
-        $client->contact_person = $data['contact_person'];
-        $client->contact_number = $data['contact_number'];
-        $client->email = $data['email'];
-        $client->credit_limit = $data['credit_limit'];
-        $client->save();
-
-         return redirect('/editClient/'. $client->id)->with('msg' , 'Client Record Updated');
+        return redirect('/editClient/'. $id)->with('msg' , 'Client Record Updated');
 
     }
 }

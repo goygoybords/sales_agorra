@@ -13,7 +13,8 @@
 
 Route::get('/', function () 
 {
-    return view('login');
+	$title = "";
+    return view('welcome')->with(compact('title'));
 });
 
 /*
@@ -35,12 +36,16 @@ Route::group(['middleware' => 'web'], function ()
 {
     Route::auth();
     Route::get('/dashboard'   , 'DashboardController@index');
+    
     Route::get('/listClients' , 'ClientController@listClients');
     Route::get('/newClient'   , 'ClientController@newClient');
     Route::post('/insertClientRecord' , 'ClientController@insertClientRecord');
-    
     Route::get('/editClient/{id}' , 'ClientController@editClientView');
     Route::post('/editClient/{id}' , 'ClientController@updateClientRecord');
+
+    Route::get('/newProposal' , 'ProposalController@newProposal');
+
+
 });
 
 
