@@ -57,7 +57,7 @@ class ClientController extends Controller
         return $client;
     }
 
-    public function editClientView(Request $request, $id)
+    public function editClientView($id)
     {
     	$client = Client::where('status' , 1)
     					->find($id);
@@ -65,8 +65,33 @@ class ClientController extends Controller
     	return view('clients.client_new')->with(compact('title','client'));
     }
 
-    // public function updateClientRecord(Request $request, $id)
-    // {
-    // 	echo $id;
-    // }
+    public function updateClientRecord(Request $request, $id)
+    {
+    	$client = Client::where('status' , 1)
+    					->find($id);
+
+    	$data = $request->only('company_name' , 'address' , 'contact_person' , 
+    		'contact_number' , 'credit_limit', 'email');
+        
+        $rules = [ 'company_name' => 'required|max:255|min:10', 
+        		   'address' => 'required|min:10',
+        		   'contact_person' => 'required|min:10',
+  				   'email' => 'required|email|min:10',
+                   'contact_number' => 'required|numeric|digits_between:8,12',
+                   'credit_limit' => 'required|numeric|digits_between:5,15'
+                 ];
+
+        $this->validate($request,$rules);
+
+        $client->company_name = $data['company_name'];
+        $client->company_address = $data['address'];
+        $client->contact_person = $data['contact_person'];
+        $client->contact_number = $data['contact_number'];
+        $client->email = $data['email'];
+        $client->credit_limit = $data['credit_limit'];
+        $client->save();
+
+         return redirect('/editClient/'. $client->id)->with('msg' , 'Client Record Updated');
+
+    }
 }

@@ -38,8 +38,9 @@ Route::group(['middleware' => 'web'], function ()
     Route::get('/listClients' , 'ClientController@listClients');
     Route::get('/newClient'   , 'ClientController@newClient');
     Route::post('/insertClientRecord' , 'ClientController@insertClientRecord');
+    
     Route::get('/editClient/{id}' , 'ClientController@editClientView');
-    Route::post('/editClient/{id}' , 'ClientController@editClientView');
+    Route::post('/editClient/{id}' , 'ClientController@updateClientRecord');
 });
 
 
