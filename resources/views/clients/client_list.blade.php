@@ -64,7 +64,7 @@
                                   <th>Credit Limit</th>
                                   <th>Balance</th>
                                   <th>Edit</th>
-                                  <th>Delete</th>
+                                  <!-- <th>Delete</th> -->
                               </tr>
                               </thead>
                               <tbody>
@@ -79,7 +79,7 @@
                                   <td>{{ $l->balance }}</td>
                                  <!--  -->
                                   <td><a href="{{ url('/editClient', $l->id)}} ">Edit</a></td>
-                                  <td><a class="delete" href="javascript:;">Delete</a></td>
+                                  <!-- <td><a class="delete" href="javascript:;">Delete</a></td> -->
                               </tr>
                               @endforeach
                               </tbody>
