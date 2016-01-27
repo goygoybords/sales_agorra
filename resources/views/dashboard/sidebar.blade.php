@@ -15,7 +15,7 @@
                             <span>Manage Clients</span>
                         </a>
                         <ul class="sub">
-                            <li><a  href="newClient.php">New Client</a></li>
+                            <li><a  href="{{ url('/newClient') }}">New Client</a></li>
                             <li><a  href="{{ url('/listClients') }}">List Clients</a></li>
                         </ul>
                     </li>

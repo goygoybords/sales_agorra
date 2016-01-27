@@ -8,7 +8,7 @@
         <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
         <link rel="shortcut icon" href="img/favicon.png">
 
-        <title>Sales System |  </title>
+        <title>Sales System | {{ $title }} </title>
 
         <!-- Bootstrap core CSS -->
 
@@ -31,7 +31,7 @@
 
     <footer class="site-footer">
         <div class="text-center">
-            2016 &copy; Lee Siu Long Corporation.
+            2016 &copy; Kho Siu Long Corporation.
             <a href="#" class="go-top"><i class="fa fa-angle-up"></i></a>
         </div>
     </footer>
@@ -62,7 +62,7 @@
           EditableTable.init();
       });
     </script>
-   <script>
+    <script>
          //owl carousel
          
          $(document).ready(function() {
@@ -123,9 +123,16 @@
       });
 
       //custom select box
-
       $(function(){
           $('select.styled').customSelect();
       });
 
+  </script>
+  <script type="text/javascript">
+      $(document).on("click", ".editClient", function () 
+      {
+          
+         var name = $(this).data('name');
+  
+     });
   </script>

@@ -24,11 +24,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('dashboard.home');
-    }
-
-    public function listClients()
-    {
-        return view('clients.client_list');
+        $title = "Dashboard";
+        return view('dashboard.home')->with(compact('title'));
     }
 }
