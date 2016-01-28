@@ -31,7 +31,7 @@
 
     <footer class="site-footer">
         <div class="text-center">
-            2016 &copy; Kho Siu Long Corporation.
+            2016 &copy; Optimind Technology Solutions.
             <a href="#" class="go-top"><i class="fa fa-angle-up"></i></a>
         </div>
     </footer>
@@ -128,3 +128,5 @@
       });
 
   </script>
+
+  

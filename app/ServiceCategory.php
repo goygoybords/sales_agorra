@@ -9,4 +9,5 @@ class ServiceCategory extends Model
     //
     protected $table = 'service_category';
    	public $timestamps = false; 
+   	protected $fillables = [''];
 }

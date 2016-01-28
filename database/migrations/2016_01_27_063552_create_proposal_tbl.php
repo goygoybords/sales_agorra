@@ -17,13 +17,15 @@ class CreateProposalTbl extends Migration
             $table->increments('proposal_id');
             $table->string('project_name');
             $table->date('proposal_date');
-            $table->integer('salesperson');
-            $table->integer('client_id');
-            $table->integer('service_category_id');
-            $table->decimal('amount', 8, 2);
-            $table->dateTime('date_sent');
-            $table->string('filename')->nullable();
+            $table->integer('salesperson')->unsigned();
+            $table->integer('client_id')->unsigned();
+            $table->decimal('total', 8, 2)->unsigned();
+            $table->binary('file');
             $table->boolean('status');
+
+            $table->foreign('salesperson')->references('id')->on('users');
+            $table->foreign('client_id')->references('client_id')->on('clients');
+
         });
     }
 

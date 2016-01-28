@@ -16,7 +16,7 @@
                     <!-- user login dropdown start-->
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <img alt="" src="img/avatar1_small.jpg">
+                            <img alt="" src="{{ URL::asset('img/avatar1_small.jpg') }} ">
                             <span class="username">{{ Auth::user()->name }}</span>
                             <b class="caret"></b>
                         </a>

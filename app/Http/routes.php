@@ -44,6 +44,8 @@ Route::group(['middleware' => 'web'], function ()
     Route::post('/editClient/{id}' , 'ClientController@updateClientRecord');
 
     Route::get('/newProposal' , 'ProposalController@newProposal');
+    Route::get('/listProposal' , 'ProposalController@getListService');
+    Route::post('/postProposal' , 'ProposalController@postProposal');
 
 
 });

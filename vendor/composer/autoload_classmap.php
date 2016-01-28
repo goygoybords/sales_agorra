@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'CreateClientsTbl' => $baseDir . '/database/migrations/2016_01_27_012016_create_clients_tbl.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
+    'CreateProposalDetailTbl' => $baseDir . '/database/migrations/2016_01_28_002552_create_proposalDetail_tbl.php',
     'CreateProposalTbl' => $baseDir . '/database/migrations/2016_01_27_063552_create_proposal_tbl.php',
     'CreateServiceCategoryList' => $baseDir . '/database/migrations/2016_01_27_071810_create_service_category_list.php',
     'CreateSessionsTable' => $baseDir . '/database/migrations/2016_01_26_013157_create_sessions_table.php',
@@ -516,6 +517,7 @@ return array(
     'SebastianBergmann\\RecursionContext\\Exception' => $vendorDir . '/sebastian/recursion-context/src/Exception.php',
     'SebastianBergmann\\RecursionContext\\InvalidArgumentException' => $vendorDir . '/sebastian/recursion-context/src/InvalidArgumentException.php',
     'SebastianBergmann\\Version' => $vendorDir . '/sebastian/version/src/Version.php',
+    'ServiceCategorySeeder' => $baseDir . '/database/seeds/ServiceCategorySeeder.php',
     'TestCase' => $baseDir . '/tests/TestCase.php',
     'Text_Template' => $vendorDir . '/phpunit/php-text-template/src/Template.php',
 );

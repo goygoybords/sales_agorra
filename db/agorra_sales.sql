@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 27, 2016 at 05:15 PM
+-- Generation Time: Jan 28, 2016 at 03:37 PM
 -- Server version: 5.6.14
 -- PHP Version: 5.5.6
 
@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `clients` (
-  `client_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `client_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `company_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `company_address` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `contact_person` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `clients` (
 --
 
 INSERT INTO `clients` (`client_id`, `company_name`, `company_address`, `contact_person`, `contact_number`, `email`, `credit_limit`, `balance`, `status`) VALUES
-(1, 'Flashpark Inc.', 'Mandaue City Cebu', 'Filjumar Jumamoy', '09167985678', 'fil@gmail.com', '100000.00', '0.00', 1);
+(1, 'Flashpark Inc', 'Mandaue City North Atrium', 'Hiro Takahashi', '199232323', 'flashpark@gmail.com', '100000.00', '0.00', 1);
 
 -- --------------------------------------------------------
 
@@ -68,7 +68,8 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 ('2016_01_26_013157_create_sessions_table', 1),
 ('2016_01_27_012016_create_clients_tbl', 1),
 ('2016_01_27_063552_create_proposal_tbl', 1),
-('2016_01_27_071810_create_service_category_list', 1);
+('2016_01_27_071810_create_service_category_list', 1),
+('2016_01_28_002552_create_proposalDetail_tbl', 1);
 
 -- --------------------------------------------------------
 
@@ -94,15 +95,46 @@ CREATE TABLE IF NOT EXISTS `proposals` (
   `proposal_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `project_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `proposal_date` date NOT NULL,
-  `salesperson` int(11) NOT NULL,
-  `client_id` int(11) NOT NULL,
-  `service_category_id` int(11) NOT NULL,
-  `amount` decimal(8,2) NOT NULL,
-  `date_sent` datetime NOT NULL,
-  `filename` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `salesperson` int(10) unsigned NOT NULL,
+  `client_id` int(10) unsigned NOT NULL,
+  `total` decimal(8,2) unsigned NOT NULL,
+  `file` blob NOT NULL,
   `status` tinyint(1) NOT NULL,
-  PRIMARY KEY (`proposal_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  PRIMARY KEY (`proposal_id`),
+  KEY `proposals_salesperson_foreign` (`salesperson`),
+  KEY `proposals_client_id_foreign` (`client_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `proposals`
+--
+
+INSERT INTO `proposals` (`proposal_id`, `project_name`, `proposal_date`, `salesperson`, `client_id`, `total`, `file`, `status`) VALUES
+(1, 'RingRob Project', '2016-01-28', 1, 1, '100000.00', 0x2f6f70742f6c616d70702f74656d702f7068707536717a646f, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `proposals_detail`
+--
+
+CREATE TABLE IF NOT EXISTS `proposals_detail` (
+  `proposal_detail_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `proposal_id` int(10) unsigned NOT NULL,
+  `service_category_id` int(10) unsigned NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  PRIMARY KEY (`proposal_detail_id`),
+  KEY `proposals_detail_proposal_id_foreign` (`proposal_id`),
+  KEY `proposals_detail_service_category_id_foreign` (`service_category_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `proposals_detail`
+--
+
+INSERT INTO `proposals_detail` (`proposal_detail_id`, `proposal_id`, `service_category_id`, `status`) VALUES
+(1, 1, 1, 1),
+(2, 1, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -111,19 +143,24 @@ CREATE TABLE IF NOT EXISTS `proposals` (
 --
 
 CREATE TABLE IF NOT EXISTS `service_category` (
-  `service_category_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `service_category_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `service_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `status` tinyint(1) NOT NULL,
   PRIMARY KEY (`service_category_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `service_category`
 --
 
 INSERT INTO `service_category` (`service_category_id`, `service_name`, `status`) VALUES
-(1, 'Web Development', 1),
-(2, 'SEO Optimizer', 1);
+(1, 'Traffic Generation - SEO', 1),
+(2, 'Traffic Generation - Social media', 1),
+(3, 'Traffic Generation - PPC', 1),
+(4, 'Traffic Generation - Content Marketing', 1),
+(5, 'Development - Mobile', 1),
+(6, 'Development - Web', 1),
+(7, 'Product - Vender', 1);
 
 -- --------------------------------------------------------
 
@@ -148,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `sessions` (
 --
 
 CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
@@ -166,7 +203,25 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`, `type`, `status`) VALUES
-(1, 'Kevin Sean Kho', 'kevinseankho@yahoo.com', '$2y$10$IRuSLwoqGeVk3Id4afkFFuAq9vXrPW1uujre2wMYBey4fPXdzJ63S', NULL, '2016-01-26 23:26:44', '2016-01-26 23:26:44', 2, 1);
+(1, 'Filjumar Jumamoy', 'fil@gmail.com', '$2y$10$BexGpbyL5q7EohsqjUBGW.Ur1c8yFsXlKDhUU7P3QzIxEDJAvKhRO', NULL, '2016-01-27 22:20:42', '2016-01-27 22:20:42', 2, 1);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `proposals`
+--
+ALTER TABLE `proposals`
+  ADD CONSTRAINT `proposals_client_id_foreign` FOREIGN KEY (`client_id`) REFERENCES `clients` (`client_id`),
+  ADD CONSTRAINT `proposals_salesperson_foreign` FOREIGN KEY (`salesperson`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `proposals_detail`
+--
+ALTER TABLE `proposals_detail`
+  ADD CONSTRAINT `proposals_detail_service_category_id_foreign` FOREIGN KEY (`service_category_id`) REFERENCES `service_category` (`service_category_id`),
+  ADD CONSTRAINT `proposals_detail_proposal_id_foreign` FOREIGN KEY (`proposal_id`) REFERENCES `proposals` (`proposal_id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
