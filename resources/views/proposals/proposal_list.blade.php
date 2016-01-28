@@ -23,7 +23,7 @@
                           <table class="table table-striped table-hover table-bordered" id="editable-sample">
                               <thead>
                               <tr>
-                                  <th>Quotation No.</th>
+                                  <th>Proposal No.</th>
                                   <th>Project Name</th>
                                   <th>Proposal Date</th>
                                   <th>Client</th>

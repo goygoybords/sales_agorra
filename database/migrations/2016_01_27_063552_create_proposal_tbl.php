@@ -22,7 +22,6 @@ class CreateProposalTbl extends Migration
             $table->decimal('total', 8, 2)->unsigned();
             $table->binary('file');
             $table->boolean('status');
-
             $table->foreign('salesperson')->references('id')->on('users');
             $table->foreign('client_id')->references('client_id')->on('clients');
 
