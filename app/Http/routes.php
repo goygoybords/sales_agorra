@@ -13,8 +13,7 @@
 
 Route::get('/', function () 
 {
-	$title = "";
-    return view('welcome')->with(compact('title'));
+    return redirect('/login');
 });
 
 /*
