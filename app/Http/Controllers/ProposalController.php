@@ -10,6 +10,7 @@ use App\Proposal;
 use App\ServiceCategory;
 use Auth;
 use App\ProposalDetail;
+use App\ProposalAttachment;
 use DB;
 class ProposalController extends Controller
 {
@@ -45,21 +46,28 @@ class ProposalController extends Controller
 
         $this->validate($request,$rules);
         
+        $filename = $file->getClientOriginalName();
+        $type = $file->getMimeType();
+
+        $attachment = new ProposalAttachment();
+        $attachment->filename = $filename;
+        $attachment->filetype = $type;
+        $attachment->file = $data['attachment'];
+        $attachment->status = 1;
+        $attachment->save();
+           
+        $attachment_id = DB::table('proposal_attachment')->max('proposal_attachment_id');
+
         $proposal = new Proposal();
         $proposal->proposal_date = date('Y-m-d', strtotime($data['proposal_date']));
         $proposal->project_name = $data['project_name'];
         $proposal->salesperson = $salesperson;
         $proposal->client_id = $data['client'];
         $proposal->total = $data['total'];
-        $proposal->file = $data['attachment'];
+        $proposal->proposal_attachment_id = $attachment_id;
         $proposal->status = 1;
         $proposal->save();
 
-        // $extension = $file->getClientOriginalExtension(); 
-        // $filename = $file->getClientOriginalName();
-        // $path = storage_path()."/uploads/";
-        // $file->move($path,$filename);
-        
         $get_last_id = DB::table('proposals')->max('proposal_id');
 
         for($i=0; $i < count($services) ; $i++)
@@ -85,7 +93,7 @@ class ProposalController extends Controller
             ->join('clients', 'proposals.client_id', '=', 'clients.client_id')
             ->join('users', 'users.id', '=', 'proposals.salesperson')
             ->select('proposals.proposal_id', 'proposals.project_name','proposals.proposal_date',
-               'proposals.total','proposals.file' , 'clients.company_name', 'users.name')
+               'proposals.total' , 'clients.company_name', 'users.name')
             ->get();
         return $proposals;
     }

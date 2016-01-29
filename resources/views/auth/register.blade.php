@@ -66,7 +66,22 @@
                             </div>
                         </div>
 
-                        
+                        <div class="form-group{{ $errors->has('type') ? ' has-error' : '' }}">
+                            <label class="col-md-4 control-label">Confirm Password</label>
+
+                            <div class="col-md-6">
+                                <select name = "type" class = "form-control">
+                                    <option value = "2">Salesperson</option>
+                                    <option value = "3">Finance</option>
+                                </select>
+
+                                @if ($errors->has('type'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('type') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">

@@ -15,8 +15,8 @@ class CreateProposalDetailTbl extends Migration
         //
         Schema::create('proposals_detail', function (Blueprint $table) {
             $table->increments('proposal_detail_id');
-            $table->integer('proposal_id')->unsigned();;
-            $table->integer('service_category_id')->unsigned();;
+            $table->integer('proposal_id')->unsigned();
+            $table->integer('service_category_id')->unsigned();
             //$table->decimal('amount', 8, 2);
             $table->boolean('status');
 
