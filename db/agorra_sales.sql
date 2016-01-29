@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 28, 2016 at 03:37 PM
+-- Generation Time: Jan 29, 2016 at 10:01 AM
 -- Server version: 5.6.14
 -- PHP Version: 5.5.6
 
@@ -203,7 +203,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`, `type`, `status`) VALUES
-(1, 'Filjumar Jumamoy', 'fil@gmail.com', '$2y$10$BexGpbyL5q7EohsqjUBGW.Ur1c8yFsXlKDhUU7P3QzIxEDJAvKhRO', NULL, '2016-01-27 22:20:42', '2016-01-27 22:20:42', 2, 1);
+(1, 'Filjumar Jumamoy', 'fil@gmail.com', '$2y$10$BexGpbyL5q7EohsqjUBGW.Ur1c8yFsXlKDhUU7P3QzIxEDJAvKhRO', 'tcd7Va0kjwhmnC2vOtILXW53E7YE1s112wNhX8RR8oq0DTHSh8WdDEru1jS0', '2016-01-29 01:25:18', '2016-01-28 17:25:18', 2, 1);
 
 --
 -- Constraints for dumped tables
@@ -220,8 +220,8 @@ ALTER TABLE `proposals`
 -- Constraints for table `proposals_detail`
 --
 ALTER TABLE `proposals_detail`
-  ADD CONSTRAINT `proposals_detail_service_category_id_foreign` FOREIGN KEY (`service_category_id`) REFERENCES `service_category` (`service_category_id`),
-  ADD CONSTRAINT `proposals_detail_proposal_id_foreign` FOREIGN KEY (`proposal_id`) REFERENCES `proposals` (`proposal_id`);
+  ADD CONSTRAINT `proposals_detail_proposal_id_foreign` FOREIGN KEY (`proposal_id`) REFERENCES `proposals` (`proposal_id`),
+  ADD CONSTRAINT `proposals_detail_service_category_id_foreign` FOREIGN KEY (`service_category_id`) REFERENCES `service_category` (`service_category_id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
