@@ -35,8 +35,8 @@
                             <span>Manage Sales</span>
                         </a>
                         <ul class="sub">
-                            <li><a href="newSale.php">New Sales</a></li>
-                            <li><a href="listSale.php">List Sales</a></li>
+                            <li><a href="{{ url('/newSale') }}">New Sales</a></li>
+                            <li><a href="{{ url('/listSales') }}">List Sales</a></li>
                         </ul>
                     </li>
                     <li class="sub-menu">

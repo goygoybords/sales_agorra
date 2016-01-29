@@ -14,10 +14,8 @@
                   <div class="panel-body">
                       <div class="adv-table editable-table ">
                           <div class="clearfix">
-                              <div class="btn-group">
-                                  
+                              <div class="btn-group">   
                               </div>
-                              
                           </div>
                           <div class="space15"></div>
                           <table class="table table-striped table-hover table-bordered" id="editable-sample">
@@ -29,7 +27,7 @@
                                   <th>Client</th>
                                   <th>Salesperson</th>
                                   <th>Total</th>
-
+                                  <th>Attachments</th>
                               </tr>
                               </thead>
                               <tbody>
@@ -41,6 +39,7 @@
                                   <td>{{ $l->company_name }}</td>
                                   <td>{{ $l->name }}</td>
                                   <td>{{ $l->total }}</td>
+                                  <td><a href ="">Download</a></td>
                               </tr>
                               @endforeach
                               </tbody>
@@ -53,4 +52,5 @@
       </section>
   </section>
   </body>
+  @endsection
 

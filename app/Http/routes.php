@@ -48,6 +48,10 @@ Route::group(['middleware' => 'web'], function ()
     Route::post('/postProposal' , 'ProposalController@postProposal');
 
 
+    Route::get('/newSale' , 'SalesController@getSalesEntry');
+    Route::get('/listSales' , 'SalesController@getSalesList');
+
+
 });
 
 

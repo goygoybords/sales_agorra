@@ -33,6 +33,7 @@ class ProposalController extends Controller
     {
         $salesperson = Auth::user()->id;
         $services = $request->input('services');
+        $file = $request->file('attachment');
         $data = $request->all();
 
         $rules = [ 'proposal_date' => 'required|date', 
@@ -45,7 +46,6 @@ class ProposalController extends Controller
         $this->validate($request,$rules);
         
         $proposal = new Proposal();
-        
         $proposal->proposal_date = date('Y-m-d', strtotime($data['proposal_date']));
         $proposal->project_name = $data['project_name'];
         $proposal->salesperson = $salesperson;
@@ -54,6 +54,11 @@ class ProposalController extends Controller
         $proposal->file = $data['attachment'];
         $proposal->status = 1;
         $proposal->save();
+
+        // $extension = $file->getClientOriginalExtension(); 
+        // $filename = $file->getClientOriginalName();
+        // $path = storage_path()."/uploads/";
+        // $file->move($path,$filename);
         
         $get_last_id = DB::table('proposals')->max('proposal_id');
 
