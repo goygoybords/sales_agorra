@@ -46,6 +46,7 @@ Route::group(['middleware' => 'web'], function ()
     Route::get('/listProposal' , 'ProposalController@getListService');
     Route::post('/postProposal' , 'ProposalController@postProposal');
 
+    Route::get('/dlProposalAttachement/{filename}', 'ProposalController@downloadAttachment');
 
     Route::get('/newSale' , 'SalesController@getSalesEntry');
     Route::get('/listSales' , 'SalesController@getSalesList');

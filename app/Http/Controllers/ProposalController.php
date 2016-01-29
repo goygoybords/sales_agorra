@@ -92,8 +92,10 @@ class ProposalController extends Controller
         $proposals = DB::table('proposals')
             ->join('clients', 'proposals.client_id', '=', 'clients.client_id')
             ->join('users', 'users.id', '=', 'proposals.salesperson')
+            ->join('proposal_attachment', 'proposal_attachment.proposal_attachment_id', 
+                '=', 'proposals.proposal_attachment_id')
             ->select('proposals.proposal_id', 'proposals.project_name','proposals.proposal_date',
-               'proposals.total' , 'clients.company_name', 'users.name')
+               'proposals.total' , 'proposal_attachment.filename', 'clients.company_name', 'users.name')
             ->get();
         return $proposals;
     }
@@ -102,6 +104,10 @@ class ProposalController extends Controller
         $list = $this->listOfProposals();
         $title = "Proposal Form";
         return view('proposals.proposal_list')->with(compact('title', 'list'));
+    }
 
+    public function downloadAttachment($filename)
+    {
+        echo $filename;
     }
 }

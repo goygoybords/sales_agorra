@@ -39,7 +39,7 @@
                                   <td>{{ $l->company_name }}</td>
                                   <td>{{ $l->name }}</td>
                                   <td>{{ $l->total }}</td>
-                                  <td><a href ="">Download</a></td>
+                                  <td><a href ="{{ url('/dlProposalAttachement', $l->filename)}}  ">{{ $l->filename }}</a></td>
                               </tr>
                               @endforeach
                               </tbody>
