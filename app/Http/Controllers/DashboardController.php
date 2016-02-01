@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Customer;
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Auth;
 
 class DashboardController extends Controller
 {
@@ -25,6 +26,8 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        //echo Auth::user()->checkRole();
+
         $title = "Dashboard";
         return view('dashboard.home')->with(compact('title'));
     }

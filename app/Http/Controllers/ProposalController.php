@@ -17,17 +17,24 @@ class ProposalController extends Controller
     //
     public function __construct()
     {
-        //session_start();
+        session_start();
         $this->middleware('auth');
     }
 
     public function newProposal()
     {
-    	$client = new ClientController();
-    	$list = $client->listOfClients();
+    	$list = $this->listOfClients();
     	$services = $this->listOfServices();
     	$title = "Proposal Form";
         return view('proposals.proposal_entry')->with(compact('title','list','services'));
+    }
+
+    public function listOfClients()
+    {
+        $client = Client::where('status', 1)
+                        ->orderBy('client_id')
+                        ->get();
+        return $client;
     }
 
     public function postProposal(Request $request)

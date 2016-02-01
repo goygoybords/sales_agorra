@@ -71,9 +71,14 @@ trait AuthenticatesUsers
             return $this->sendLockoutResponse($request);
         }
 
-        $credentials = $this->getCredentials($request);
+        //$credentials = $this->getCredentials($request);
+        
+        $email = $request->input($this->loginUsername());
+        $password = $request->input('password');
 
-        if (Auth::guard($this->getGuard())->attempt($credentials, $request->has('remember'))) {
+        $data = [$this->loginUsername() => $email, 'password' => $password, 'status' => 1];
+  
+        if (Auth::guard($this->getGuard())->attempt($data, $request->has('remember'))) {
             return $this->handleUserWasAuthenticated($request, $throttles);
         }
 
