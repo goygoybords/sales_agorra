@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class CheckRoleMiddleware
 {
@@ -16,9 +16,10 @@ class CheckRoleMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user()->checkRole() == 1) 
+        if (Auth::check()) 
         {
-            return response('admin');
+            if(Auth::user()->checkRole() == 1)
+                return response('admin');
         }
         return $next($request);
     }

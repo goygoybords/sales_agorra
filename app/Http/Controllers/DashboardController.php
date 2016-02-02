@@ -16,7 +16,9 @@ class DashboardController extends Controller
     public function __construct()
     {
         session_start();
+        
         $this->middleware('auth');
+        $this->middleware('checker');
     }
 
     /**
@@ -26,7 +28,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        //echo Auth::user()->checkRole();
+        // Auth::user()->name;
 
         $title = "Dashboard";
         return view('dashboard.home')->with(compact('title'));
