@@ -11,7 +11,9 @@ use App\ServiceCategory;
 use Auth;
 use App\ProposalDetail;
 use App\ProposalAttachment;
+use App\Client;
 use DB;
+
 class ProposalController extends Controller
 {
     //
@@ -59,7 +61,7 @@ class ProposalController extends Controller
         $attachment = new ProposalAttachment();
         $attachment->filename = $filename;
         $attachment->filetype = $type;
-        $attachment->file = $data['attachment'];
+        $attachment->file = base64_encode(file_get_contents($file->getRealPath())); //$data['attachment'];
         $attachment->status = 1;
         $attachment->save();
            
@@ -115,6 +117,15 @@ class ProposalController extends Controller
 
     public function downloadAttachment($filename)
     {
-        echo $filename;
+        $attachment = ProposalAttachment::where('filename', '=', $filename)->firstOrFail();
+        
+        $headers = ['Content-Type' => $attachment->filetype,
+                     'Content-Disposition' => 'attachment; filename="'.$filename.'"',
+                     'Content-Transfer-Encoding' => 'binary',
+                     'Accept-Ranges' => 'bytes'
+                    ];
+
+        return response()->download($attachment->file, $attachment->filename, $headers);
+
     }
 }
