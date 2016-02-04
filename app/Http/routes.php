@@ -51,6 +51,8 @@ Route::group(['middleware' => 'web'], function ()
     Route::get('/newSale' , 'SalesController@getSalesEntry');
     Route::get('/listSales' , 'SalesController@getSalesList');
 
+    Route::post('/getSalesData' ,  'SalesController@getSalesData');
+
 
 });
 

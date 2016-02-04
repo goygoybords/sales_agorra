@@ -42,7 +42,6 @@
                       			<label>Service Category:</label><br>
                       				@foreach($services as $s)
 			                        <input type="checkbox" name = "services[]" value = "{{ $s->service_category_id }}" class="check">{{ $s->service_name }}
-			                  
                       				@endforeach
                       				<br>
                       			<br>

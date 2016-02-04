@@ -61,7 +61,7 @@ class ProposalController extends Controller
         $attachment = new ProposalAttachment();
         $attachment->filename = $filename;
         $attachment->filetype = $type;
-        $attachment->file = base64_encode(file_get_contents($file->getRealPath())); //$data['attachment'];
+        $attachment->file = addslashes(file_get_contents($file)); //$data['attachment'];
         $attachment->status = 1;
         $attachment->save();
            
@@ -119,13 +119,16 @@ class ProposalController extends Controller
     {
         $attachment = ProposalAttachment::where('filename', '=', $filename)->firstOrFail();
         
-        $headers = ['Content-Type' => $attachment->filetype,
-                     'Content-Disposition' => 'attachment; filename="'.$filename.'"',
-                     'Content-Transfer-Encoding' => 'binary',
-                     'Accept-Ranges' => 'bytes'
-                    ];
+        header('Content-Type: ' . $attachment->type);
+        header('Content-Disposition: attachment; filename="'.$filename.'"' );
+        echo $attachment->file;
+        // $headers = ['Content-Type' => $attachment->filetype,
+        //              'Content-Disposition' => 'attachment; filename="'.$filename.'"',
+        //              'Content-Transfer-Encoding' => 'binary',
+        //              'Accept-Ranges' => 'bytes'
+        //             ];
 
-        return response()->download($attachment->file, $attachment->filename, $headers);
+        // return response()->download($attachment->file, $attachment->filename, $headers);
 
     }
 }

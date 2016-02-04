@@ -127,6 +127,39 @@
           $('select.styled').customSelect();
       });
 
+      // script for sales
+      $('.proposal').change(function()
+      {
+          var proposal_id = $(".proposal option:selected").val();
+          var project_name = '';
+          var company_name = '';
+          var salesperson = '';
+          var client = '';
+          var total = '';
+          if(proposal_id != '')
+          {
+              $.ajax({
+                  type: "POST",
+                  url: '{{ url("/getSalesData") }}',
+                  data: { _token : "{{ csrf_token() }}" , proposal_id: proposal_id },
+                  success: function(data)
+                  {   
+                      for(i=0; i< data.length; i++)
+                      {
+                          project_name = data[i].project_name;
+                          company_name = data[i].company_name;
+                          salesperson = data[i].name;
+                          total = data[i].total;
+                      }
+                       $('.salesperson').val(salesperson)
+                       $('.project_name').val(project_name);
+                       $('.client').val(company_name);
+                       $('.total').val(total);
+                  }
+              }); // end of ajax
+          }//end of if
+      });//end of item list
+
   </script>
 
   
