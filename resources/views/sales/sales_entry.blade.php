@@ -26,7 +26,7 @@
 
                       <br>
                       <label>Project name:</label>
-                        <input type="text" class="project_name form-control">
+                        <input type="text" readonly class="project_name form-control">
 
                       <div class="row">
                         <div class="col-md-4">
@@ -35,7 +35,7 @@
                         </div>
                         <div class="col-md-4">
                           <br><label>Client</label>
-                          <input type="text" name="client" class="client form-control"  >
+                          <input type="text" readonly class="client form-control"  >
                         </div>
                         <div class="col-md-4">
                           <br><label>Payment Terms</label>
@@ -46,7 +46,7 @@
                       <div class="row">
                         <div class="col-md-4">
                           <br><label>Amount Detail</label>
-                           <input type="text" name="total" value = "{{ old('total') }}" class="total form-control">
+                           <input type="text" name="total" value = "{{ old('total') }}" readonly class="total form-control">
                         </div>
                         <div class="col-md-4">
                           <br><label>is Vatable</label>
@@ -73,7 +73,7 @@
                        <br>
 
                        <label>Salesperson</label>
-                          <input type="text" name = "salesperson" class="salesperson form-control">
+                          <input type="text" readonly class="salesperson form-control">
                        <br>
                       
                       <!--  <label>Description:</label>
