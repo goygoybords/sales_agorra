@@ -48,8 +48,9 @@ Route::group(['middleware' => 'web'], function ()
 
     Route::get('/dlProposalAttachement/{filename}', 'ProposalController@downloadAttachment');
 
-    Route::get('/newSale' , 'SalesController@getSalesEntry');
+    Route::get('/newSale'   , 'SalesController@getSalesEntry');
     Route::get('/listSales' , 'SalesController@getSalesList');
+    Route::post('/postSales' , 'SalesController@insertSalesRecord');
 
     Route::post('/getSalesData' ,  'SalesController@getSalesData');
 
