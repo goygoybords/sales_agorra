@@ -109,4 +109,37 @@ class SalesController extends Controller
             ->get();
         return $proposals;
     }
+
+    public function editSales($id)
+    {
+        $sales = Sale::where('status' , 1)
+                        ->where('sales_id' , $id)
+                        ->first();
+
+        $prop = DB::table('proposals')
+            ->join('clients', 'proposals.client_id', '=', 'clients.client_id')
+            ->join('users', 'users.id', '=', 'proposals.salesperson')
+            ->select('proposals.project_name',
+               'proposals.total' , 'clients.company_name', 'users.name')
+            ->where('proposals.proposal_id' ,$sales->proposal_id)
+            ->where('proposals.status', 1)
+            ->first();
+
+        $title = "Edit Sales Record";
+        return view('sales.sales_entry')->with(compact('title' , 'sales', 'prop'));
+    }
+    public function updateSales(Request $request, $id)
+    {
+        $data = $request->only('terms' , 'isVatable', 'isCommissionable', 'attachment');
+        $file = $request->file('attachment');
+        
+        $rules = [ 
+                   'terms' => 'required',
+                   'isVatable' => 'required',
+                   'isCommissionable' => 'required',
+                   'attachment' => 'mimes:doc,docx,pdf,xls'
+                 ];
+        
+        $this->validate($request,$rules);
+    }
 }

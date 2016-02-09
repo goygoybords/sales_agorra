@@ -40,7 +40,7 @@
 			                                <td>@if ($s->isCommisionable == 1) Yes @else No @endif </td> -->
 			                                <td>{{ $s->total }} </td>
 			                                <!-- <td>@if ($s->status == 1) Open @else Close @endif</td> -->
-			                                <td><a href = "">Edit</a></td>
+			                                 <td><a href="{{ url('/editSales', $s->sales_id)}} ">Edit</a></td>
 			                                <td><a href = "">Delete</a></td>
 			                            </tr>
 			                            @endforeach

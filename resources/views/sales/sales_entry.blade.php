@@ -10,8 +10,12 @@
          		<div class="row">
          			<div class="col-lg-8">
          				<div class="create">
-         					<form method = "POST" action = "{{ url('/postSales') }}" enctype="multipart/form-data" >
-         						{{ csrf_field() }}
+                            @if(isset($sales))
+                                <form method = "POST" action = "{{ url('/editSales', $sales->sales_id) }}" enctype="multipart/form-data">
+         					@else
+                                <form method = "POST" action = "{{ url('/postSales') }}" enctype="multipart/form-data" >
+         					@endif
+                                {{ csrf_field() }}
                                 @if($errors->has())
                                     @foreach ($errors->all() as $error)
                                         <div id="error_message">{{ $error }}</div>
@@ -20,66 +24,126 @@
                                 @elseif (Session::has('msg'))
                                     <div id="error_message">{{ Session::get('msg') }}</div>
                                 @endif
-         						<center><h2>Create New Sales</h2></center>
+
+                                @if(isset($sales))
+                                    <center><h2>Update Sales Record</h2></center>
+                                @else
+         						     <center><h2>Create New Sales</h2></center>
+                                @endif
                                 
          						<label>Proposal No:</label>
-         						<select class="proposal form-control" name = "proposal" >
-         							<option></option>
-         							@foreach($proposals as $p)
-	         							<option value = "{{ $p->proposal_id }}">
-	         								{{ $p->proposal_id }}
-	         							</option>
-         							@endforeach
-         						</select>
+                                @if(isset($sales))
+                                    <input type = "text" name = "proposal" value = "{{ $sales->proposal_id }}" readonly class = "form-control">
+                                @else
+             						<select class="proposal form-control" name = "proposal" >
+             							<option></option>
+             							@foreach($proposals as $p)
+    	         							<option value = "{{ $p->proposal_id }}">
+    	         								{{ $p->proposal_id }}
+    	         							</option>
+             							@endforeach
+             						</select>
+                                @endif
          						<br>
          						<label>Project name:</label>
-         						<input type="text" readonly class="project_name form-control">
-
+                                @if(isset($sales))
+                                     <input type="text" value = "{{ $prop->project_name }}" readonly class="project_name form-control">
+                                @else
+                                    <input type="text" readonly class="project_name form-control">
+                                @endif
+         					
          						<div class="row">
          							<div class="col-md-4">
          								<br><label>Date</label>
-         								<input type="date" name="sales_date" value = "{{ date('Y/m/d') }}" class="form-control">
-         							</div>
+                                        @if(isset($sales))
+         								   <input type="date" name="sales_date" value = "{{ date('Y/m/d', strtotime($sales->sales_date))  }}" readonly class="form-control">
+         							    @else
+                                            <input type="date" name="sales_date" value = "{{ date('Y/m/d') }}" class="form-control">
+                                        @endif
+                                    </div>
          							<div class="col-md-4">
          								<br><label>Client</label>
-         								<input type="text" readonly class="client form-control"  >
-         							</div>
+                                        @if(isset($sales))
+         								   <input type="text" value = "{{ $prop->company_name }}" readonly class="client form-control" >
+         							    @else
+                                            <input type="text" readonly class="client form-control" >
+                                        @endif
+                                    </div>
          							<div class="col-md-4">
          								<br><label>Payment Terms</label>
-         								<input type="text" name="terms" value = "{{ old('terms') }}" class="form-control"  >
-         							</div>
+                                        @if(isset($sales))
+                                            <input type="text" name="terms" value = "{{ $sales->terms }}" class="form-control"  >
+                                        @else
+         								   <input type="text" name="terms" value = "{{ old('terms') }}" class="form-control"  >
+         							    @endif
+                                    </div>
          						</div>
 
          						<div class="row">
          							<div class="col-md-4">
          								<br><label>Amount Detail</label>
-         								<input type="text" name="total" readonly class="total form-control">
-         							</div>
+                                        @if(isset($sales))
+                                            <input type="text" value = "{{ $sales->total }}" name="total" readonly class="total form-control">
+                                        @else
+         								   <input type="text" name="total" readonly class="total form-control">
+         							    @endif
+                                    </div>
          							<div class="col-md-4">
          								<br><label>is Vatable</label>
+                                        @if(isset($sales))
+                                            <select name = "isVatable" class = "vatable form-control">
+                                                <option></option>
+                                                <option value = "1" @if($sales->isVatable == 1) selected = selected @endif> Vatable</option>
+                                                <option value = "0" @if($sales->isVatable == 0) selected = selected @endif> Non - Vatable</option> 
+                                            </select>
+                                        @else
          								<select name = "isVatable" class = "vatable form-control">
          									<option></option>
                                             <option value = "1">Vatable</option>
 				                            <option value = "0">Non - Vatable</option> 
 				                        </select>
+                                        @endif
                         			</div>
                         			<div class="col-md-4">
-                        				<br><label>is Commissionable</label>
-                        				<select name = "isCommissionable" class = "form-control">
-                        					<option></option>
-                        					<option value = "1">Yes</option>
-                        					<option value = "0">No</option>
-                        				</select>
+                                        <br><label>is Commissionable</label>
+                                        @if(isset($sales))
+                                            <select name = "isCommissionable" class = "form-control">
+                                                <option></option>
+                                                <option value = "1" @if($sales->isCommissionable == 1) selected @endif>Yes</option>
+                                                <option value = "0" @if($sales->isCommissionable == 0) selected @endif>No</option>
+                                            </select>
+                                        @else
+                            				<select name = "isCommissionable" class = "form-control">
+                            					<option></option>
+                            					<option value = "1">Yes</option>
+                            					<option value = "0">No</option>
+                            				</select>
+                                        @endif
                         			</div>
                         		</div>
                         		<br>
                         		<label>Attach Signed Quotation:</label>
-                        		<input type="file" name = "attachment" class="form-control" style = "padding:0px;">
-                       			<br>
-
+                                @if(isset($sales))
+                                    <div class="contain">
+                                            <div class="name">
+                                                <a href ="">Filename</a>
+                                            </div>
+                                            <div class="name">
+                                                <a href = "" class = "displayer">Upload a new file</a>
+                                                <input type="file" name = "attachment" class="attachment form-control" style = "padding:0px;">
+                                            </div>
+                                        </div>
+                                @else
+                        		    <input type="file" name = "attachment" class="form-control" style = "padding:0px;">
+                       			@endif
+                                <br>
                        			<label>Salesperson</label>
-                       			<input type="text" readonly class="salesperson form-control">
-                       			<br>
+                                @if(isset($sales))
+                                    <input type="text" readonly value = "{{ $prop->name }}" class="salesperson form-control">
+                                @else
+                       			      <input type="text" readonly class="salesperson form-control">
+                       			@endif
+                                <br>
 
                        			 <!--  <label>Description:</label>
 			                        <textarea class="form-control"></textarea>
@@ -93,9 +157,12 @@
 			                       <input type="radio">No
 			                       <br>
 			                       <br> -->
-
-                       			<button type="submit" class="btn btn-info">Add Sales Record</button>
-                       		</form>
+                                @if(isset($sales))
+                                    <button type="submit" class="btn btn-info">Update Sales Record</button>
+                                @else
+                       			  <button type="submit" class="btn btn-info">Add Sales Record</button>
+                       		    @endif
+                            </form>
                        	</div>
                     </div>
                 </div>
