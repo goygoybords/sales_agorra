@@ -109,8 +109,8 @@
                                         @if(isset($sales))
                                             <select name = "isCommissionable" class = "form-control">
                                                 <option></option>
-                                                <option value = "1" @if($sales->isCommissionable == 1) selected @endif>Yes</option>
-                                                <option value = "0" @if($sales->isCommissionable == 0) selected @endif>No</option>
+                                                <option value = "1" @if($sales->isCommisionable == 1) selected @endif>Yes</option>
+                                                <option value = "0" @if($sales->isCommisionable == 0) selected @endif>No</option>
                                             </select>
                                         @else
                             				<select name = "isCommissionable" class = "form-control">
@@ -126,10 +126,11 @@
                                 @if(isset($sales))
                                     <div class="contain">
                                             <div class="name">
-                                                <a href ="">Filename</a>
+                                                <a href ="">{{ $attach->filename }}</a>
                                             </div>
                                             <div class="name">
-                                                <a href = "" class = "displayer">Upload a new file</a>
+                                                <a href = "#" class = "displayer">Upload a new file</a>
+                                                <a href = "#" class = "closer">Cancel</a>
                                                 <input type="file" name = "attachment" class="attachment form-control" style = "padding:0px;">
                                             </div>
                                         </div>

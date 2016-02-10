@@ -124,9 +124,12 @@ class SalesController extends Controller
             ->where('proposals.proposal_id' ,$sales->proposal_id)
             ->where('proposals.status', 1)
             ->first();
+        $attach = SaleAttachment::where('status' , 1)
+                    ->where('sale_attachment_id' , $sales->sale_attachment_id)
+                    ->first();
 
         $title = "Edit Sales Record";
-        return view('sales.sales_entry')->with(compact('title' , 'sales', 'prop'));
+        return view('sales.sales_entry')->with(compact('title' , 'sales', 'prop','attach'));
     }
     public function updateSales(Request $request, $id)
     {
@@ -141,5 +144,17 @@ class SalesController extends Controller
                  ];
         
         $this->validate($request,$rules);
+
+        $updates = ['terms' => $data['terms'] , 
+                    'isVatable' => $data['isVatable'],
+                    'isCommisionable' => $data['isCommissionable']
+                   ];
+
+        $sales = Sale::where('status' , 1)
+                    ->where('sales_id' , $id)
+                    ->update($updates);
+
+        return redirect('/editSales/'. $id)->with('msg' , 'Sales Record Updated');
+
     }
 }

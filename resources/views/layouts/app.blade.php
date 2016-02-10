@@ -158,7 +158,24 @@
                   }
               }); // end of ajax
           }//end of if
-      });//end of item list
+      });//end of item list.
+
+        $(".attachment").hide();
+        $(".closer").hide();
+        $(".displayer").click(function () {
+            $(".attachment").show();
+            $(".closer").show();
+            $(".displayer").hide();
+        });
+
+        $(".closer").click(function () {
+            $(".attachment").hide();
+            $(".displayer").show();
+            $('.closer').hide();
+        });
+
+        
+    
 
   </script>
 
