@@ -145,6 +145,7 @@ class SalesController extends Controller
         
         $this->validate($request,$rules);
 
+
         $updates = ['terms' => $data['terms'] , 
                     'isVatable' => $data['isVatable'],
                     'isCommisionable' => $data['isCommissionable']
@@ -153,6 +154,26 @@ class SalesController extends Controller
         $sales = Sale::where('status' , 1)
                     ->where('sales_id' , $id)
                     ->update($updates);
+
+        $attachment_id = Sale::where('status' , 1)
+                    ->where('sales_id' , $id)
+                    ->first();
+  
+        if ($request->hasFile('attachment')) 
+        {
+            $filename = $file->getClientOriginalName();
+            $type = $file->getMimeType();
+
+            $attachment_updates = ['filename' => $filename , 
+                        'filetype' => $type,
+                        'file' => addslashes(file_get_contents($file))
+                       ];
+
+            $attachment = SaleAttachment::where('status' , 1)
+                    ->where('sale_attachment_id', $attachment_id->sale_attachment_id)
+                    ->update($attachment_updates);
+        }
+        
 
         return redirect('/editSales/'. $id)->with('msg' , 'Sales Record Updated');
 
