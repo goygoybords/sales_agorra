@@ -57,6 +57,8 @@ Route::group(['middleware' => 'web'], function ()
     Route::get('/editSales/{id}' , 'SalesController@editSales');
     Route::post('/editSales/{id}' , 'SalesController@updateSales');
 
+    Route::get('/cancelSales/{id}' , 'SalesController@cancelSales');
+
 });
 
 

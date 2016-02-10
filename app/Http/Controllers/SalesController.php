@@ -144,8 +144,6 @@ class SalesController extends Controller
                  ];
         
         $this->validate($request,$rules);
-
-
         $updates = ['terms' => $data['terms'] , 
                     'isVatable' => $data['isVatable'],
                     'isCommisionable' => $data['isCommissionable']
@@ -173,9 +171,15 @@ class SalesController extends Controller
                     ->where('sale_attachment_id', $attachment_id->sale_attachment_id)
                     ->update($attachment_updates);
         }
-        
-
         return redirect('/editSales/'. $id)->with('msg' , 'Sales Record Updated');
+    }
+    public function cancelSales($id)
+    {
+        $updates = ['status' => 0];
+        $sales = Sale::where('status' , 1)
+                    ->where('sales_id' , $id)
+                    ->update($updates);
 
+        return redirect('/listSales');
     }
 }
