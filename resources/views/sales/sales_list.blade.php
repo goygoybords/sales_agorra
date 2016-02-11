@@ -20,10 +20,8 @@
 	                  						<th>Quotation #</th>
 	                  						<th>Company Name</th>
 	                  						<th>Project Name</th>
-	                  						<!-- <th>Vatable</th>
-	                  						<th>Commissionable</th> -->
 				                            <th>Total</th>
-				                            <!-- <th>Status</th> -->
+				                            <th>Status</th> 
 				                            <th>Edit</th>
 				                            <th>Delete</th>
 				                        </tr>
@@ -39,13 +37,30 @@
 			                                <!-- <td>@if ($s->isVatable == 1) Yes @else No @endif </td>
 			                                <td>@if ($s->isCommisionable == 1) Yes @else No @endif </td> -->
 			                                <td>{{ $s->total }} </td>
-			                                <!-- <td>@if ($s->status == 1) Open @else Close @endif</td> -->
-			                                <td><a href = "{{ url('/editSales' , $s->sales_id)}} ">Edit</a></td>
-			                                <td><a href = "{{ url('cancelSales', $s->sales_id)}} ">Delete</a></td>
+			                                <td>
+			                                	@if ($s->status == 1) Pending 
+			                                	@elseif ($s->status == 0) Canceled Sale
+			                                	@elseif ($s->status == 2) Paid 
+			                                	@endif</td> 
+			                                <td>
+			                                	@if($s->status == 0 || $s->status == 2)
+			                                	<label>No Action</label>
+			                                	@else
+			                                	<a href = "{{ url('/editSales' , $s->sales_id)}} ">Edit</a>
+			                                	@endif
+			                                </td>
+			                                <td>
+			                                	@if($s->status == 0 || $s->status == 2)
+			                                	<label>No Action</label>
+			                                	@else
+			                                	<a href = "{{ url('cancelSales', $s->sales_id)}} ">Delete</a>
+			                                	@endif
+			                                </td>
 			                            </tr>
 			                            @endforeach
 			                        </tbody>
 			                    </table>
+			                    <button>Export To Excel</button>
 			                </div>
 			            </div>
 			        </section>

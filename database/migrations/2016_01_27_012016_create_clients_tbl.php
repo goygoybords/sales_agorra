@@ -20,7 +20,7 @@ class CreateClientsTbl extends Migration
             $table->string('contact_person');
             $table->string('contact_number', 15);
             $table->string('email');
-            $table->decimal('credit_limit', 8, 2);
+            // $table->decimal('credit_limit', 8, 2);
             $table->decimal('balance', 8, 2);
             $table->boolean('status');
         });

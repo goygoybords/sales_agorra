@@ -70,12 +70,12 @@
                                                 @endif
                 							</div>
                 						</div>
-                    				<label><br>Credit Limit:</label>
+                    				<!-- <label><br>Credit Limit:</label>
                                         @if(isset($client))
                                             <input type="text" name="credit_limit" class="form-control" value = "{{ $client->credit_limit }}">
                                         @else
                                             <input type="text" name="credit_limit" class="form-control" value = "{{ old('credit_limit') }}">
-                                        @endif
+                                        @endif -->
                     				<br>
                                     @if(isset($client))
                                         <button type="submit" name="submit" class="btn btn-info">Update Client Record</button>

@@ -104,7 +104,9 @@ class ProposalController extends Controller
             ->join('proposal_attachment', 'proposal_attachment.proposal_attachment_id', 
                 '=', 'proposals.proposal_attachment_id')
             ->select('proposals.proposal_id', 'proposals.project_name','proposals.proposal_date',
-               'proposals.total' , 'proposal_attachment.filename', 'clients.company_name', 'users.name')
+               'proposals.total' , 'proposal_attachment.filename', 'clients.company_name'
+               , 'users.name', 'proposals.status')
+            ->where('proposals.status' ,'!=' ,0)
             ->get();
         return $proposals;
     }

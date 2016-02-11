@@ -18,13 +18,11 @@
                               <thead>
                               <tr>
                                   Optimind Technology Solutions
-
                                   <th>Company Name</th>
                                   <th>Address</th>
                                   <th>Contact Person</th>
                                   <th>Contact No.</th>
                                   <th>Email</th>
-                                  <th>Credit Limit</th>
                                   <th>Balance</th>
                                   <th>Edit</th>
                                   <!-- <th>Delete</th> -->
@@ -38,7 +36,6 @@
                                   <td>{{ $l->contact_person }}</td>
                                   <td>{{ $l->contact_number }}</td>
                                   <td>{{ $l->email }}</td>
-                                  <td>{{ $l->credit_limit }}</td>
                                   <td>{{ $l->balance }}</td>
                                  <!--  -->
                                   <td><a href="{{ url('/editClient', $l->client_id)}} ">Edit</a></td>

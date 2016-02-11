@@ -10,6 +10,6 @@ class Client extends Model
     protected $table = 'clients';
    	public $timestamps = false; 
     protected $fillables = ['company_name' , 'address' , 'contact_person' , 'contact_number',
-    						   'email' , 'credit_limit', 'balance' ,'status'
+    						   'email' , 'balance' ,'status'
     					   ];
 }

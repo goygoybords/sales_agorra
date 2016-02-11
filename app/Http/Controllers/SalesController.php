@@ -10,6 +10,7 @@ use DB;
 use App\Proposal;
 use App\Sale;
 use App\SaleAttachment;
+use App\Client;
 
 class SalesController extends Controller
 {
@@ -29,7 +30,7 @@ class SalesController extends Controller
     public function insertSalesRecord(Request $request)
     {
         $data = $request->only('proposal' , 'sales_date' , 'terms' , 
-            'total' , 'isVatable', 'isCommissionable', 'attachment');
+            'total' , 'isVatable', 'isCommissionable', 'attachment' ,'customer');
         
         $file = $request->file('attachment');
         $rules = [ 'proposal' => 'required', 
@@ -65,6 +66,19 @@ class SalesController extends Controller
         $sales->status = 1;
         $sales->save();
 
+        $updates = ['status' => 2];
+        $update_prop = Proposal::where('proposal_id' , $data['proposal'])
+                    ->update($updates);
+
+        $customer = Client::where('status' , 1)
+                        ->where('company_name' , $data['customer'])
+                        ->first();
+        
+        $updates = ['balance' => $data['total'] ];
+        
+        $customer_update = Client::where('client_id' , $customer->client_id)
+                        ->update($updates);
+
         return redirect('/newSale')->with('msg' , 'Sale Record Stored');
         
     }
@@ -90,7 +104,7 @@ class SalesController extends Controller
             ->join('clients', 'proposals.client_id', '=', 'clients.client_id')
             ->join('users', 'users.id', '=', 'proposals.salesperson')
             ->select('sales.*', 'proposals.project_name','clients.company_name', 'users.name')
-            ->where('sales.status', '!=' , 0)
+            // ->where('sales.status', '!=' , 0)
             ->get();
         return $sales;
     }

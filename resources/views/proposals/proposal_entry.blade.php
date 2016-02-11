@@ -24,7 +24,7 @@
                           <label>Prosal Detail</label><br>
 		                      	<div class="contain">
 		                      		<div class="name">
-                            			<input type="date" name="proposal_date" value = "{{ old('proposal_date') }}" placeholder = "Proposal Date"  class="form-control">
+                            			<input type="date" name="proposal_date" value = "{{ date('Y/m/d') }}" placeholder = "Proposal Date"  class="form-control">
                           			</div>
                           			<div class="name">
                               			<input type="text" name="project_name" value = "{{ old('project_name') }}" placeholder = "Project Name" class="form-control"  >

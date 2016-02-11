@@ -28,6 +28,7 @@
                                   <th>Salesperson</th>
                                   <th>Total</th>
                                   <th>Attachments</th>
+                                  <th>Status</th>
                               </tr>
                               </thead>
                               <tbody>
@@ -40,6 +41,13 @@
                                   <td>{{ $l->name }}</td>
                                   <td>{{ $l->total }}</td>
                                   <td><a href ="{{ url('/dlProposalAttachement', $l->filename)}}  ">{{ $l->filename }}</a></td>
+                                  <td>
+                                      @if($l->status == 1)
+                                        Pending
+                                      @elseif($l->status == 2)
+                                        On Sale Record
+                                      @endif
+                                  </td>
                               </tr>
                               @endforeach
                               </tbody>

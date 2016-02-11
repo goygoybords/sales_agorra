@@ -64,9 +64,9 @@
          							<div class="col-md-4">
          								<br><label>Client</label>
                                         @if(isset($sales))
-         								   <input type="text" value = "{{ $prop->company_name }}" readonly class="client form-control" >
+         								   <input type="text"  value = "{{ $prop->company_name }}" readonly class="client form-control" >
          							    @else
-                                            <input type="text" readonly class="client form-control" >
+                                            <input type="text" name = "customer" readonly class="client form-control" >
                                         @endif
                                     </div>
          							<div class="col-md-4">
