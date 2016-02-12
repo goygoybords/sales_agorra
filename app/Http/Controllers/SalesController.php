@@ -193,7 +193,14 @@ class SalesController extends Controller
         $sales = Sale::where('status' , 1)
                     ->where('sales_id' , $id)
                     ->update($updates);
-
         return redirect('/listSales');
+    }
+    public function getCollection($id)
+    {
+        echo "hello";
+    }
+    public function exportSales()
+    {
+        echo "hello";
     }
 }

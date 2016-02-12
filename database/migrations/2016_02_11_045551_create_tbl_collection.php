@@ -17,6 +17,7 @@ class CreateTblCollection extends Migration
          {
             $table->increments('collection_id');
             $table->integer('sales_id')->unsigned();
+            $table->date('collection_date');
             $table->enum('collection_type', ['PP', 'FP']);
             $table->text('remarks')->nullable();
             $table->decimal('amount', 10, 2);

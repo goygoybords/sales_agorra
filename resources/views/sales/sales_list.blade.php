@@ -60,7 +60,7 @@
 			                            @endforeach
 			                        </tbody>
 			                    </table>
-			                    <button>Export To Excel</button>
+			                    <a href ="{{ url('/exportSales') }}"><button>Export To Excel</button></a>
 			                </div>
 			            </div>
 			        </section>

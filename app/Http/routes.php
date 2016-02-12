@@ -59,6 +59,8 @@ Route::group(['middleware' => 'web'], function ()
 
     Route::get('/cancelSales/{id}' , 'SalesController@cancelSales');
 
+    Route::get('/newCollection/{id}', 'SalesController@getCollection');
+    Route::get('/exportSales' , 'SalesController@exportSales');
 });
 
 
