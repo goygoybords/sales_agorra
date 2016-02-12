@@ -41,7 +41,8 @@ Route::group(['middleware' => 'web'], function ()
     Route::post('/insertClientRecord' , 'ClientController@insertClientRecord');
     Route::get('/editClient/{id}' , 'ClientController@editClientView');
     Route::post('/editClient/{id}' , 'ClientController@updateClientRecord');
-
+    Route::get('/totalClients' , 'ClientController@countClients');
+    
     Route::get('/newProposal' , 'ProposalController@newProposal');
     Route::get('/listProposal' , 'ProposalController@getListService');
     Route::post('/postProposal' , 'ProposalController@postProposal');
@@ -61,6 +62,8 @@ Route::group(['middleware' => 'web'], function ()
 
     Route::get('/newCollection/{id}', 'SalesController@getCollection');
     Route::get('/exportSales' , 'SalesController@exportSales');
+
+
 });
 
 

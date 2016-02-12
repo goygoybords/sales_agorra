@@ -102,4 +102,9 @@ class ClientController extends Controller
         return redirect('/editClient/'. $id)->with('msg' , 'Client Record Updated');
 
     }
+    public function countClients()
+    {
+        $count = Client::where('status', 1)->count();
+        return $count;
+    }
 }

@@ -64,6 +64,16 @@
     </script>
     <script>
          //owl carousel
+         countUp(25);
+         var url = '{{ url("/totalClients") }}' ;
+         $.get( url, function( data ) 
+         {
+            //alert( data );
+            countUp2(data);
+            
+         });
+         
+         countUp3(25);
          
          $(document).ready(function() {
              $("#owl-demo").owlCarousel({

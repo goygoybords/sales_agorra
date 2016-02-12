@@ -45,7 +45,9 @@
                                       @if($l->status == 1)
                                         Pending
                                       @elseif($l->status == 2)
-                                        On Sale Record
+                                        Sold
+                                      @elseif($l->status == 0)
+                                        Declined/Canceled
                                       @endif
                                   </td>
                               </tr>

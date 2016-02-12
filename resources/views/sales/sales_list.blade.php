@@ -38,9 +38,9 @@
 			                                <td>@if ($s->isCommisionable == 1) Yes @else No @endif </td> -->
 			                                <td>{{ $s->total }} </td>
 			                                <td>
-			                                	@if ($s->status == 1) Pending 
-			                                	@elseif ($s->status == 0) Canceled Sale
-			                                	@elseif ($s->status == 2) Paid 
+			                                	@if ($s->status == 1) Pending Payment
+			                                	@elseif ($s->status == 0) Declined/Canceled Sale
+			                                	@elseif ($s->status == 2) Sold 
 			                                	@endif</td> 
 			                                <td>
 			                                	@if($s->status == 0 || $s->status == 2)
